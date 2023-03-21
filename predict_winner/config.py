@@ -40,7 +40,7 @@ class MapPool:
                 'Ancient', 'Dust2', 'Inferno', 'Mirage', 'Nuke', 'Overpass', 'Vertigo'
             ]
 
-        for change_date, map_pool in self.date_of_change.items():
+        for change_date, map_pool in sorted(self.date_of_change.items()):
             if datetime.strftime(date, '%Y-%m-%d') < change_date:
                 self.available_maps = map_pool
                 break

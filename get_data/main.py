@@ -2,7 +2,7 @@ from entities import Match
 from tools import get_paginas, get_links_jogos, MatchTables
 
 
-paginas = get_paginas('2022-11-09', '2022-11-11')
+paginas = get_paginas('2022-11-11', '2023-03-09')
 
 # 2022
 # FALTAM JOGOS NO DIA 01/05

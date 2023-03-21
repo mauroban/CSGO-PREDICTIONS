@@ -216,13 +216,6 @@ def run_data_in_elo_system(df):
 
         rank.update_elo(game)
 
-        # if team_name == 'Lyngby Vikings' or op_name == 'Lyngby Vikings':
-        #     print(elo_op_pre, op_name)
-        #     print(elo_team_pre, teams[team_name].elo)
-        #     print(elo_map_team_pre, teams[team_name].map_elo[map_name], '\n')
-
-    # colunas = list(rank.teams['Natus Vincere'].map_elo.keys()) + ['elo', 'team']
-
     x = pd.DataFrame()
 
     for k, v in rank.teams.items():

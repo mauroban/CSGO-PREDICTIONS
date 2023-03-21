@@ -19,6 +19,7 @@ def get_paginas(inicio, fim):
     }
 
     pagina_html = get_html_code(paginas['pagina 1'])
+    print(pagina_html)
     jogos = int(pagina_html.find('div', 'pagination-component with-stats-table').text.split()[-1])
     print(jogos)
     if jogos > 50:
