@@ -58,14 +58,14 @@ class Modelo:
         X_train = X_train[self.selected_cols]
 
         eval_set = None
-        if hasattr(self.dataset_class, 'X_val') and hasattr(self.dataset_class, 'y_val'):
+        if hasattr(self.dataset_class, 'X_val') and hasattr(self.dataset_class, 'y_val'): # noqa
             X_val = self.dataset_class.X_val.drop(columns=["MATCH_ID"])
             y_val = self.dataset_class.y_val
 
             # Feature selection
             X_val_selected = selector.transform(X_val)
 
-            eval_set = [(X_val, y_val)]
+            eval_set = [(X_val_selected, y_val)]
 
         try:
             self.model.fit(
@@ -104,8 +104,12 @@ class Modelo:
 
             return results
 
-        results_train = results_df(self.dataset_class.X_train, self.dataset_class.y_train)
-        results_test = results_df(self.dataset_class.X_test, self.dataset_class.y_test)
+        results_train = results_df(
+            self.dataset_class.X_train, self.dataset_class.y_train
+            )
+        results_test = results_df(
+            self.dataset_class.X_test, self.dataset_class.y_test
+            )
 
         return results_train, results_test
 
@@ -190,7 +194,7 @@ def evaluate_model(modelos: list) -> None:
             "F1 score": f1_score(y_true, round(y_pred)),
             "ROC AUC score": roc_auc_score(y_true, y_pred),
             "Average precision score": average_precision_score(y_true, y_pred),
-            "Balanced accuracy score": balanced_accuracy_score(y_true, round(y_pred))
+            "Balanced accuracy score": balanced_accuracy_score(y_true, round(y_pred)) # noqa
         }
         print(f"{name} results:")
         for metric_name, metric_value in metrics.items():
@@ -208,13 +212,18 @@ def feat_importance(modelo):
         try:
             feature_importance = modelo.coef_[0]
         except AttributeError:
-            print("Error: Model does not have a feature_importances_ or coef_ attribute.")
+            print(
+                "Error: Model does not have a feature_importances_"
+                " or coef_ attribute."
+                )
             return
 
     keys = list(modelo.feature_names_in_)
     values = list(feature_importance)
 
-    features = pd.DataFrame(data=values, index=keys, columns=["score"]).sort_values(by="score", ascending=False)
+    features = pd.DataFrame(
+        data=values, index=keys, columns=["score"]
+        ).sort_values(by="score", ascending=False)
     print(features)
 
 
